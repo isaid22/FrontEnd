@@ -21,4 +21,12 @@ Then in a browser, open this URL: http://localhost:8080
 uvicorn myapp:app --reload --host 0.0.0.0 --port 8000
 ```
 
+3. Recommender API Base URL - After log in, in the recommender API Base URL space, put:
 
+```
+http://localhost:8000/api/recommendation?user_id=u_003
+```
+
+Where u_003 is the user ID. (There are three users you may choose to use).
+
+Then click "Fetch from API".
