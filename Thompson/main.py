@@ -1,11 +1,39 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import ORJSONResponse
 from pydantic import BaseModel
 from bandit import ThompsonBandit
 
-app = FastAPI(title="Thompson-Bandit", version="0.1.0")
+
+app = FastAPI(title="Thompson-Bandit",default_response_class=ORJSONResponse,  version="0.1.0")
+
+# ✅ Dev CORS: allow any origin
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],        # or ["http://localhost:8080"] if you want to be stricter
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,    # keep False if using "*"
+)
+
+
 
 # --- config -------------------------------------------------------------
 ARM_NAMES = ["headline_A", "headline_B", "headline_C"]   # change at will
+ARM_DESCRIPTIONS = {
+    "headline_A": {
+        "message": "Check today's <link>mortgage rates</link>",
+        "url": "https://www.chase.com/personal/mortgage/mortgage-rates"
+    },
+    "headline_B": {
+        "message": "Explore <link>refinancing options</link> for your home",
+        "url": "https://www.chase.com/personal/mortgage/refinance"
+    },
+    "headline_C": {
+        "message": "Learn about <link>home equity</link> solutions",
+        "url": "https://www.chase.com/personal/home-equity/customer-service"
+    }
+}
 bandit = ThompsonBandit(ARM_NAMES)
 # ------------------------------------------------------------------------
 
@@ -33,3 +61,16 @@ def reward(payload: RewardIn):
 def state():
     """Debug: current posterior parameters."""
     return bandit.state()
+
+@app.get("/api/recommendation")
+def get_recommendation(user_id: str):
+    """Get a recommendation for a specific user."""
+    # Here we're using the bandit to choose the recommendation
+    choice = bandit.choose()
+    description = ARM_DESCRIPTIONS[choice]
+    return {
+        "user_id": user_id,
+        "recommendation": choice,
+        "message": description["message"],
+        "url": description["url"]
+    }
