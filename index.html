@@ -440,8 +440,12 @@
         return;
       }
       
-      const base = (els.apiBase.value || '').replace(/\/$/, '');
+      const fullUrl = (els.apiBase.value || '').replace(/\/$/, '');
+      const indexOfApi = fullUrl.indexOf('/api');
+      const base = indexOfApi !== -1 ? fullUrl.substring(0, indexOfApi) : fullUrl;
       const url = `${base}/reward`;
+      console.log('Reporting reward to URL:', url);
+      console.log('Reporting reward for arm:', arm, 'with reward value:', reward);
       const user = getSession();
       
       fetch(url, {
