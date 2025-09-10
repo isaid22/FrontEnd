@@ -30,3 +30,14 @@ http://localhost:8000/api/recommendation?user_id=u_003
 Where u_003 is the user ID. (There are three users you may choose to use).
 
 Then click "Fetch from API".
+
+
+## Alternatives
+
+There is another back end that has more feature added. It is in `Thompson` directory. To launch this back end:
+
+go to Thompson directory and run the following command:
+
+```python
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
