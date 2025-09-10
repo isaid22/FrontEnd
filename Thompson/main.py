@@ -27,7 +27,7 @@ ARM_DESCRIPTIONS = {
     },
     "headline_B": {
         "message": "Explore <link>refinancing options</link> for your home",
-        "url": "https://www.chase.com/personal/mortgage/refinance"
+        "url": "https://www.chase.com/personal/mortgage/mortgage-refinance"
     },
     "headline_C": {
         "message": "Learn about <link>home equity</link> solutions",
@@ -68,6 +68,14 @@ def get_recommendation(user_id: str):
     # Here we're using the bandit to choose the recommendation
     choice = bandit.choose()
     description = ARM_DESCRIPTIONS[choice]
+    
+    # Get current state of the chosen arm for logging
+    arm_state = bandit.state()[choice]
+    print(f"\nArm Selected: {choice}")
+    print(f"Current Parameters - Alpha: {arm_state['alpha']:.2f}, Beta: {arm_state['beta']:.2f}")
+    if arm_state['num_pulls'] > 0:
+        print(f"Average Reward: {arm_state['average_reward']:.3f} (Total Pulls: {arm_state['num_pulls']})")
+    
     return {
         "user_id": user_id,
         "recommendation": choice,
