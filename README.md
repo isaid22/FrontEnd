@@ -45,4 +45,17 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ## Cloud Considerations
 
-Deployment in public cloud requires some changes and considerations documented [here](Cloud_Consideration.md)
+Deployment in public cloud requires some changes and considerations documented [here](Cloud_Consideration.md). 
+
+
+## Docker Container
+
+To build this application as a docker container:
+
+```
+# Build the Docker image
+docker build -t thompson-bandit .
+
+# Run the container
+docker run -p 8000:8000 thompson-bandit
+```
