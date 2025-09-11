@@ -41,3 +41,8 @@ go to Thompson directory and run the following command:
 ```python
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+
+## Cloud Considerations
+
+Deployment in public cloud requires some changes and considerations documented [here](Cloud_Consideration.md)
