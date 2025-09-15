@@ -362,7 +362,9 @@
         console.log('Starting getRec function');
         const base = (els.apiBase.value || '').replace(/\/$/, '');
         const user = getSession();
-        const url = `${base}/api/recommendation?user_id=${user.id}`;
+        // Remove any duplicate /api if it exists in the base URL
+        const cleanBase = base.endsWith('/api') ? base.slice(0, -4) : base;
+        const url = `${cleanBase}/api/recommendation?user_id=${user.id}`;
         console.log('Fetching from URL:', url);
         
         if(!base){
