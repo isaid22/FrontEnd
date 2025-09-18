@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bank Demo - Accounts Overview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="brand" aria-label="brand">
+      <div class="logo" title="bank logo" aria-hidden="true"></div>
+      <h1>Chase Demo</h1>
+    </div>
+
+    <nav aria-label="main navigation" class="main-nav">
+      <a class="active" href="#">Accounts</a>
+      <a href="#">Pay & transfer</a>
+      <a href="#">Plan & track</a>
+      <a href="#">Investments</a>
+      <a href="#">Security & privacy</a>
+      <a href="#">Explore products</a>
+    </nav>
+
+    <div class="topbar-right">
+      <button class="icon-btn" title="Search" aria-label="Search">🔍</button>
+      <span id="userIdentity" class="user-identity"></span>
+      <button id="signinTrigger" class="signin-btn">Sign in</button>
+    </div>
+  </header>
+
+  <div class="subnav">
+    <button class="chip chip-active">Overview</button>
+    <button class="chip">Statements & documents</button>
+    <button class="chip">Profile & settings</button>
+  </div>
+
+  <main class="container" role="main">
+    <section class="left-col">
+      <div class="page-header">
+        <h2>Good evening</h2>
+      </div>
+
+      <!-- Bank accounts -->
+      <section class="card">
+        <div class="card-header">
+          <div class="account-title">Bank accounts</div>
+          <button class="chev" aria-label="Collapse">▾</button>
+        </div>
+
+        <div class="card-row">
+          <div>
+            <button class="linkish">TOTAL CHECKING (...9328)</button>
+            <div class="balance" data-balance-checking>$6,673.79</div>
+            <div class="muted">Available balance</div>
+          </div>
+
+          <div class="right-block">
+            <div class="account-actions">
+              <button class="btn">Transfer money</button>
+
+              <div class="menu">
+                <button class="btn secondary menu-trigger" aria-haspopup="true" aria-expanded="false">More ▾</button>
+                <div class="menu-popover" role="menu">
+                  <button role="menuitem">View statements</button>
+                  <button role="menuitem">Account details</button>
+                  <button role="menuitem">Download activity</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="muted t-right mt-12">
+              <div>+ $4,281.90 <span class="small-muted">Deposits this month</span></div>
+              <div class="mt-6">- $10,070.00 <span class="small-muted">Withdrawals this month</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credit cards -->
+      <section class="card">
+        <div class="card-header">
+          <div class="account-title">Credit cards</div>
+          <button class="chev" aria-label="Collapse">▾</button>
+        </div>
+
+        <div class="credit-top">
+          <div class="grow">
+            <button class="linkish">Freedom (...8370)</button>
+
+            <div class="alert info">
+              ✔ You've scheduled <strong>$1,233.79</strong> to be paid on <strong>Sep 19, 2025</strong>. 
+              <a href="#" class="inline-link">See payment activity</a>
+            </div>
+
+            <div class="credit-body">
+              <div>
+                <div class="credit-amount" data-balance-card>$2,076.50</div>
+                <div class="muted">Current balance</div>
+
+                <div class="kv-grid mt-12">
+                  <div><strong>Sep 19, 2025</strong><span class="kv-sub">Payment due date</span></div>
+                  <div><strong>$40.00</strong><span class="kv-sub">Minimum payment due</span></div>
+                  <div><strong>$1,233.79</strong><span class="kv-sub">Last statement balance</span></div>
+                  <div><strong>$16,923.50</strong><span class="kv-sub">Available credit</span></div>
+                </div>
+              </div>
+              <div class="plastic">VISA</div>
+            </div>
+          </div>
+
+          <div class="right-block">
+            <div class="account-actions justify-end">
+              <button class="btn secondary">Pay card</button>
+
+              <div class="menu">
+                <button class="btn secondary menu-trigger" aria-haspopup="true" aria-expanded="false">More ▾</button>
+                <div class="menu-popover" role="menu">
+                  <button role="menuitem">Set up autopay</button>
+                  <button role="menuitem">Card benefits</button>
+                  <button role="menuitem">Replace card</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- External accounts -->
+      <section class="card">
+        <div class="card-header">
+          <div class="account-title">External accounts</div>
+          <button class="chev" aria-label="Collapse">▾</button>
+        </div>
+        <p class="muted mt-6">
+          Link your external accounts to better organize your money, budget and plan for the future.
+        </p>
+        <button class="btn mt-12">Link account</button>
+      </section>
+    </section>
+
+    <!-- Right sidebar -->
+    <aside class="sidebar">
+      <!-- Rewards -->
+      <div class="card small">
+        <div class="card-header tight">
+          <strong>Rewards</strong>
+          <button class="chev" aria-label="Open">▸</button>
+        </div>
+        <div class="rewards">
+          <div class="r-logo" aria-hidden="true">C</div>
+          <div>
+            <div class="rewards-value">157,168</div>
+            <div class="muted">Ultimate Rewards® points</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Travel (editable & persisted) -->
+      <div class="card" id="travelCard">
+        <div class="card-header">
+          <strong>Travel</strong>
+          <div id="travelEditControls">
+            <button id="editTravel" class="edit-btn">Edit</button>
+          </div>
+        </div>
+
+        <div class="travel-body">
+          <div class="circle icon">✈️</div>
+          <div class="content">
+            <div id="travelContent">
+              <div class="h6">Explore adventures around the world</div>
+              <div class="muted mt-4">Book hotels, flights, car rentals & more</div>
+            </div>
+
+            <div class="edit-actions" id="travelEditActions" hidden>
+              <button id="saveTravel" class="btn">Save</button>
+              <button id="cancelTravel" class="edit-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offers carousel -->
+      <div class="card small">
+        <div class="card-header tight">
+          <div>
+            <strong>Chase Offers</strong>
+            <div class="muted small">Add deals, shop and get cash back</div>
+          </div>
+          <div class="pill">138</div>
+        </div>
+
+        <div class="carousel" aria-roledescription="carousel">
+          <button class="carousel-nav prev" aria-label="Previous">‹</button>
+          <div class="carousel-viewport" tabindex="0">
+            <div class="carousel-track">
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/d9e6fb/0b63b6&text=Dollar+General"><span>10% cash back</span></div>
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/efe6ff/6c42a6&text=SeatGeek"><span>5% cash back</span></div>
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/ffefe0/b35b00&text=Outback"><span>10% cash back</span></div>
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/e7fff1/0c8b4b&text=Grocery"><span>5% cash back</span></div>
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/eaf7ff/0b63b6&text=Travel"><span>3% cash back</span></div>
+              <div class="offer"><img alt="" src="https://dummyimage.com/300x180/fff4f4/bb2a2a&text=Dining"><span>8% cash back</span></div>
+            </div>
+          </div>
+          <button class="carousel-nav next" aria-label="Next">›</button>
+        </div>
+
+        <div class="dots" role="tablist" aria-label="Offers slides"></div>
+
+        <button class="btn block mt-12">See your offers</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Sign-in Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <h3 class="modal-title">Sign in to Chase Demo</h3>
+      <form id="signinForm">
+        <label class="field">
+          <span>Email</span>
+          <input id="email" type="email" placeholder="demo@bank.com" required>
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input id="password" type="password" placeholder="Demo@123" required>
+        </label>
+
+        <div class="row between mt-8">
+          <div class="small-muted">Demo: <strong>demo@bank.com</strong> / <strong>Demo@123</strong></div>
+          <div class="row gap-8">
+            <button type="button" id="closeModal" class="edit-btn">Close</button>
+            <button type="submit" class="btn">Sign in</button>
+          </div>
+        </div>
+      </form>
+      <p class="small-muted mt-8">
+        This demo tries <code>POST /api/login</code> first. If unavailable, it falls back to the local demo credential.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // ===== Helpers =====
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
+    const on = (el, ev, fn) => el.addEventListener(ev, fn);
+
+    // ===== Demo sign-in (API first, fallback to local) =====
+    const DEMO_USER = [
+      { email: "demo@bank.com", password: "Demo@123" },
+      { email: "alice@bank.com", password: "Alice@123" },
+      { email: "bob@bank.com",   password: "Bob@123" },
+    ];
+    const signinTrigger = qs('#signinTrigger');
+    const modal = qs('#modal');
+    const closeModal = qs('#closeModal');
+    const signinForm = qs('#signinForm');
+    const userIdentity = qs('#userIdentity');
+
+    function setSignedInUI(email){
+      signinTrigger.textContent = 'Sign out';
+      signinTrigger.onclick = () => {
+        localStorage.removeItem('demo_user');
+        setSignedOutUI();
+        alert('Signed out');
+      };
+      userIdentity.textContent = email;   // 👈 show who signed in
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    }
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    }
+    function setSignedOutUI(){
+      signinTrigger.textContent = 'Sign in';
+      signinTrigger.onclick = () => {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        qs('#email').focus();
+      };
+      userIdentity.textContent = '';      // 👈 clear on sign out
+    }
+    (function initAuth(){
+      const user = localStorage.getItem('demo_user');
+      user ? setSignedInUI(JSON.parse(user).email) : setSignedOutUI();
+    })();
+
+    on(closeModal,'click',()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); });
+
+    on(signinForm,'submit', async (e)=>{
+      e.preventDefault();
+      const email = qs('#email').value.trim();
+      const password = qs('#password').value;
+      try {
+        const res = await fetch('/api/login', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email,password})
+        });
+        if (res.ok) {
+          const data = await res.json();
+          localStorage.setItem('demo_user', JSON.stringify({email:data.email || email, time:Date.now()}));
+          setSignedInUI(email);
+          alert('Signed in via API');
+          return;
+        }
+      } catch(_) {}
+      const match = DEMO_USERS.find(u => u.email === email && u.password === password);
+      if (match) {
+        localStorage.setItem('demo_user', JSON.stringify({ email, time: Date.now() }));
+        setSignedInUI(email);
+        alert('Signed in (demo fallback)');
+      } else {
+        alert('Invalid credential. Try one of the demo accounts');
+      }
+    });
+
+    // ===== Dropdown menus =====
+    qsa('.menu').forEach(menu => {
+      const trigger = menu.querySelector('.menu-trigger');
+      const pop = menu.querySelector('.menu-popover');
+      on(trigger,'click', (e)=>{
+        e.stopPropagation();
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        qsa('.menu-popover').forEach(p => p.classList.remove('open'));
+        qsa('.menu-trigger').forEach(t => t.setAttribute('aria-expanded','false'));
+        if (!expanded){ pop.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+      });
+    });
+    on(document,'click', ()=> {
+      qsa('.menu-popover').forEach(p => p.classList.remove('open'));
+      qsa('.menu-trigger').forEach(t => t.setAttribute('aria-expanded','false'));
+    });
+
+    // ===== Travel card editable & persisted =====
+    const travelContentEl = qs('#travelContent');
+    const editBtn = qs('#editTravel');
+    const saveBtn = qs('#saveTravel');
+    const cancelBtn = qs('#cancelTravel');
+    const editActions = qs('#travelEditActions');
+    const STORAGE_KEY = 'demo_travel_card';
+    const defaultTravel = { title:'Explore adventures around the world', subtitle:'Book hotels, flights, car rentals & more' };
+
+    function sanitize(s){ return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function renderTravel(obj){
+      travelContentEl.innerHTML = `<div class="h6">${sanitize(obj.title)}</div><div class="muted mt-4">${sanitize(obj.subtitle)}</div>`;
+    }
+    function loadTravel(){
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        renderTravel(raw ? JSON.parse(raw) : defaultTravel);
+      } catch { renderTravel(defaultTravel); }
+    }
+    loadTravel();
+
+    on(editBtn,'click',()=>{
+      const t = travelContentEl.querySelector('.h6')?.textContent || '';
+      const s = travelContentEl.querySelector('.muted')?.textContent || '';
+      travelContentEl.innerHTML = `
+        <input id="travelTitle" class="in" value="${sanitize(t)}">
+        <textarea id="travelSub" class="in mt-6" rows="2">${sanitize(s)}</textarea>`;
+      editActions.hidden = false; editBtn.hidden = true;
+      qs('#travelTitle').focus();
+    });
+    on(saveBtn,'click',()=>{
+      const payload = {
+        title: qs('#travelTitle').value.trim() || defaultTravel.title,
+        subtitle: qs('#travelSub').value.trim() || defaultTravel.subtitle
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      renderTravel(payload);
+      editActions.hidden = true; editBtn.hidden = false;
+    });
+    on(cancelBtn,'click',()=>{ loadTravel(); editActions.hidden = true; editBtn.hidden = false; });
+
+    // ===== Offers carousel =====
+    const track = qs('.carousel-track');
+    const prevBtn = qs('.carousel-nav.prev');
+    const nextBtn = qs('.carousel-nav.next');
+    const dots = qs('.dots');
+
+    const visible = 3;
+    const items = qsa('.offer');
+    let index = 0;
+
+    function buildDots(){
+      const pages = Math.max(1, Math.ceil(items.length / visible));
+      dots.innerHTML = '';
+      for (let i=0; i<pages; i++){
+        const b = document.createElement('button');
+        b.setAttribute('role','tab');
+        if (i===0) b.classList.add('active');
+        b.addEventListener('click', ()=> goTo(i));
+        dots.appendChild(b);
+      }
+    }
+    function goTo(pageIdx){
+      index = Math.max(0, Math.min(pageIdx, Math.ceil(items.length/visible)-1));
+      const cardW = items[0].getBoundingClientRect().width + 12;
+      track.style.transform = `translateX(${-index * cardW * visible}px)`;
+      Array.from(dots.children).forEach((d,i)=> d.classList.toggle('active', i===index));
+    }
+    nextBtn.addEventListener('click',()=> goTo(index+1));
+    prevBtn.addEventListener('click',()=> goTo(index-1));
+    window.addEventListener('resize',()=> goTo(index));
+    buildDots(); goTo(0);
+  </script>
+</body>
+</html>
